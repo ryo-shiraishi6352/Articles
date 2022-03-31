@@ -13,6 +13,10 @@ https://github.com/walbourn/directx-sdk-samples/tree/main/XAudio2/XAudio2BasicSo
 WAVの読み込み部分は以下のWAVFileReader.cppをそのまま使わせてもらいます。  
 https://github.com/walbourn/directx-sdk-samples/blob/main/XAudio2/Common/WAVFileReader.cpp
 
+# 動作環境
+Windows10 + Visual Studio Community 2022  
+Windows7以前ではフラグの指定方法などが異なるので動かない可能性が高いので注意してください。
+
 # XAudio2の初期化
 ```cpp
 #include <xaudio2.h>
