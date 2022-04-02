@@ -18,11 +18,13 @@ Windows10 + Visual Studio Community 2022
 Windows7以前ではフラグの指定方法などが異なるので動かない可能性が高いので注意してください。
 
 # XAudio2の初期化
+XAudio2を使用するには以下のヘッダファイルとlibファイルを必要とします。
 ```cpp
 #include <xaudio2.h>
 #pragma comment(lib,"xaudio2.lib")
 ```
 
+XAudio2の初期化をするにはCOMの初期化、XAudio2の初期化の順に行います。
 ```cpp
 CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
@@ -78,4 +80,12 @@ while (true)
     }
     Sleep(10);
 }
+```
+
+# XAudio2の終了
+```cpp
+pSourceVoice->DestroyVoice();
+pMasteringVoice->DestroyVoice();
+pXAudio2->Release();
+CoUninitialize();
 ```
