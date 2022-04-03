@@ -63,6 +63,7 @@ pXAudio2->CreateSourceVoice(&pSourceVoice, waveData.wfx);
 ```
 
 # 音声再生
+読み込んだ音声データをSubmitSourceBufferでセットしてStartで再生します。
 ```cpp
 XAUDIO2_BUFFER buffer{ 0 };
 buffer.pAudioData = waveData.startAudio;
@@ -74,6 +75,9 @@ pSourceVoice->Start(0);
 ```
 
 # 終了まで待機
+再生状況を確認してBuffersQueuedが0になるまでプログラムが終了しないように待機します。  
+BuffersQueuedはバッファの残数を返しています。  
+今回では1つのバッファしか処理させていないので最初は1で再生が終わると0になるのでそれで判定しています。
 ```cpp
 while (true)
 {
@@ -88,6 +92,7 @@ while (true)
 ```
 
 # XAudio2の終了
+作られた順番に破棄していきます。
 ```cpp
 pSourceVoice->DestroyVoice();
 pMasteringVoice->DestroyVoice();
