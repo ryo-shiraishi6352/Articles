@@ -39,12 +39,16 @@ pXAudio2->SetDebugConfiguration(&debug, 0);
 ```
 
 # マスターボイスの作成
+マスターボイスはIXAudio2オブジェクトから生成します。
 ```cpp
 IXAudio2MasteringVoice* pMasteringVoice{ nullptr };
 pXAudio2->CreateMasteringVoice(&pMasteringVoice);
 ```
 
 # WAV読み込み
+WAVの読み込みはWAVFileReader.cppにあるDirectX::LoadWAVAudioFromFileExを使用します。  
+DirectX::WAVData waveDataはstd::unique_ptr<uint8_t[]> waveFileが実体なので
+waveFileを破棄すると使えなくなります。
 ```cpp
 std::unique_ptr<uint8_t[]> waveFile{ nullptr };
 DirectX::WAVData waveData{ 0 };
@@ -52,6 +56,7 @@ DirectX::LoadWAVAudioFromFileEx(path, waveFile, waveData);
 ```
 
 # ソースボイスの作成
+マスターボイスはIXAudio2オブジェクトから生成します。
 ```cpp
 IXAudio2SourceVoice* pSourceVoice{ nullptr };
 pXAudio2->CreateSourceVoice(&pSourceVoice, waveData.wfx);
