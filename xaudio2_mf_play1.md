@@ -99,3 +99,9 @@ pMasteringVoice->DestroyVoice();
 pXAudio2->Release();
 CoUninitialize();
 ```
+
+# おわりに
+チュートリアルとほぼ同じ手順でXAudio2を使ってWAVファイルの再生を行いました。
+その2ではMedia Foundationを使ってMP3の再生を行います。  
+今回のコードは以下のところにおいています。  
+https://github.com/ryo-shiraishi6352/Articles/blob/main/XAudio2Play.h
