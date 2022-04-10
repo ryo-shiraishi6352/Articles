@@ -6,6 +6,9 @@
 Media FoundationはMP3をサポートしており読み込むことができるので
 XAudio2とMedia Foundationを使ってMP3の再生を行います。  
 
+XAudio2とMediaFoundationを使ったWAV/MP3再生その1  
+https://qiita.com/ryo_shiraishi6352/items/cc1b54b47a46a353c549
+
 Media Foundationでサポートされるメディア形式  
 https://docs.microsoft.com/ja-jp/windows/win32/medfound/supported-media-formats-in-media-foundation
 
@@ -116,3 +119,10 @@ MFShutdown();
 
 CoUninitialize();
 ```
+
+# 終わりに
+XAudio2とMedia Foundationを使ってMP3の再生を行いました。
+Media FoundationはWAVもサポートしているのでコードを変更せずにWAVも再生できます。
+
+今回のコードは以下のところにおいています。  
+https://github.com/ryo-shiraishi6352/Articles/blob/main/XAudio2MFPlay.h
