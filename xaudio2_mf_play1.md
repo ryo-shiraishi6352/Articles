@@ -7,6 +7,9 @@ XAudio2を使えば同時再生ができるので再生するまでの手順を�
 その1ではまずXAudio2を使ってWAVを再生します。  
 その2ではMedia Foundationを使ってMP3を読み込み、そのデータをXAudio2で再生します。
 
+XAudio2とMediaFoundationを使ったWAV/MP3再生その2  
+https://qiita.com/ryo_shiraishi6352/items/d4a40521bdb09c838e9d
+
 # 参考にしたサンプル
 本記事は以下のサンプルを参考に参考にしています。  
 https://github.com/walbourn/directx-sdk-samples/tree/main/XAudio2/XAudio2BasicSound  
