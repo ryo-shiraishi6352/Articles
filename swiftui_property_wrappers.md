@@ -1,7 +1,7 @@
-<!-- SwiftUIのProperty Wrappersの使い方 -->
+<!-- SwiftUIのProperty Wrappersの使い方 その１ -->
 
 # はじめに
-SwiftUIのProperty Wrappersでこんなときはどうしたらいいの？どのように使えばいいの？と
+SwiftUIのProperty wrappersでこんなときはどうしたらいいの？どのように使えばいいの？と
 あまり理解できていなかったのでいくつかサンプルを作成しながら使い方をまとめました。  
 
 # Stateの使い方
@@ -60,3 +60,46 @@ struct StateContentView: View {
     }
 }
 ```
+![スクリーンショット 2022-07-26 7.02.21.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/10b2f22c-3b4b-1b42-5d66-28cb3f83d8ce.png)
+
+# Computed propertyの使い方
+`@State`はStored propertyに付与しますが、Computed propertyには付与することができません。  
+ただし、Computed propertyが`@State`を付与したプロパティを持っているとき、
+その`@State`を付与したプロパティが変更されると、Computed propertyとViewが更新されます。
+これは`@State`だけでなく、`@Binding`などのProperty wrapperでも同様です。
+
+```swift
+import SwiftUI
+
+struct ComputedPropertyContentView: View {
+    @State var value1 = 0
+    @State var value2 = 0
+    
+    var sumValue: Int { self.value1 + self.value2 }
+    
+    var body: some View {
+        VStack {
+            Button(action: {
+                self.value1 += 1
+            }) {
+                Text("value1")
+                    .padding()
+            }
+            Button(action: {
+                self.value2 += 1
+            }) {
+                Text("value2")
+                    .padding()
+            }
+            Text(String(self.sumValue)).padding() //*
+            Text(String(Int.random(in: 0..<10)))
+                .padding()
+        }
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+}
+```
+
+上のコードではComputed propertyとしてsumValueを定義しています。  
+value1とvalue2を変更するとViewにsumValueの表示があるのでViewが更新され、乱数値も更新されます。  
+コード上の`*`をつけた行をコメントアウトするとvalue1とvalue2を変更してもViewが更新されず乱数値が更新されなくなります。
