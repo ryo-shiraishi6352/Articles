@@ -99,6 +99,7 @@ struct ComputedPropertyContentView: View {
     }
 }
 ```
+![スクリーンショット 2022-07-28 7.41.59.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/fafd2c76-36d9-5135-bfdb-9e466e7eccc4.png)
 
 上のコードではComputed propertyとしてsumValueを定義しています。  
 value1とvalue2を変更するとViewにsumValueの表示があるのでViewが更新され、乱数値も更新されます。  
@@ -169,3 +170,4 @@ struct BindingView: View {
     }
 }
 ```
+![スクリーンショット 2022-08-01 6.55.09.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/84e21358-9b9f-e998-0c28-e276d21c45af.png)
