@@ -103,3 +103,69 @@ struct ComputedPropertyContentView: View {
 上のコードではComputed propertyとしてsumValueを定義しています。  
 value1とvalue2を変更するとViewにsumValueの表示があるのでViewが更新され、乱数値も更新されます。  
 コード上の`*`をつけた行をコメントアウトするとvalue1とvalue2を変更してもViewが更新されず乱数値が更新されなくなります。
+
+# Bindingの使い方
+Viewの外から受け取った値を変更したいプロパティには`@Binding`を付与することで変更が可能になります。  
+そのプロパティをさらにBinding引数に渡すには`$`をプロパティの前につけて渡します。  
+
+```swift
+import SwiftUI
+
+struct BindingContentView: View {
+    @State var value1 = 0
+    @State var value2 = 0
+    @State var array: [Int] = []
+    
+    var body: some View {
+        BindingView(value1: self.$value1, value2: self.$value2, array: self.$array)
+    }
+}
+
+struct BindingView: View {
+    @Binding var value1: Int
+    @Binding var value2: Int
+    @Binding var array: [Int]
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("参照と更新")
+                    .padding()
+                Button(action: {
+                    self.value1 += 1
+                }) {
+                    Text(String(self.value1))
+                        .padding()
+                }
+            }
+            HStack {
+                Text("@Bindingに渡す")
+                    .padding()
+                Picker("value", selection: self.$value2) {
+                    ForEach(0...99, id: \.self) { v in
+                        Text(String(v))
+                    }
+                }
+            }
+            HStack {
+                Text("Array")
+                    .padding()
+                Button(action: {
+                    self.array.append(self.value1 + self.value2)
+                }) {
+                    Text("add")
+                        .padding()
+                }
+            }
+            List {
+                ForEach(self.array, id: \.self) { v in
+                    Text(String(v))
+                }
+                .onDelete { offsets in
+                    self.array.remove(atOffsets: offsets)
+                }
+            }
+        }
+    }
+}
+```
