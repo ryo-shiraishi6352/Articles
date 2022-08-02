@@ -171,3 +171,79 @@ struct BindingView: View {
 }
 ```
 ![スクリーンショット 2022-08-01 6.55.09.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/84e21358-9b9f-e998-0c28-e276d21c45af.png)
+
+# 何も付けていないプロパティに値を渡した場合
+Viewの外から値を受け取って変更したい場合には`@Binding`を付けますが、
+値を変更する必要がない場合には何も付けずに受け取ることができます。
+
+```swift
+import SwiftUI
+
+struct ReadOnlyContentView: View {
+    @State var value1 = 0
+    @State var value2 = 0
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("value1")
+                    .padding()
+                Button(action: {
+                    self.value1 += 1
+                }) {
+                    Text("+1")
+                        .padding()
+                }
+            }
+            HStack {
+                Text("value2")
+                    .padding()
+                Button(action: {
+                    self.value2 += 1
+                }) {
+                    Text("+1")
+                        .padding()
+                }
+            }
+            ReadOnlyView1(value: self.value1 * 10) //Viewが更新される
+            ReadOnlyView2(value: self.value1) //Viewが更新される
+            ReadOnlyView3() //Viewが更新されない
+        }
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+}
+
+struct ReadOnlyView1: View {
+    var value: Int
+    
+    var body: some View {
+        VStack {
+            Text(String(self.value))
+                .padding()
+        }
+    }
+}
+
+struct ReadOnlyView2: View {
+    var value: Int
+    
+    var body: some View {
+        VStack {
+            Text(String(Int.random(in: 0...9)))
+                .padding()
+        }
+    }
+}
+
+struct ReadOnlyView3: View {
+    var body: some View {
+        VStack {
+            Text(String(Int.random(in: 0...9)))
+                .padding()
+        }
+    }
+}
+```
+![スクリーンショット 2022-08-03 7.03.11.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/93b954c8-634e-046c-67bf-8cb9ac894db4.png)
+
+何も付けていないプロパティを持つViewは引数として`@State`などの変更を検知できるプロパティを受け取る場合にViewが更新されます。
