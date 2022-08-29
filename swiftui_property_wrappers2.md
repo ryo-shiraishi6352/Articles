@@ -114,3 +114,5 @@ struct ObservedObjectContentView_Previews: PreviewProvider {
 ```
 
 ![スクリーンショット 2022-08-25 7.02.41.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/9ed901e6-bc08-445c-5dbc-fd9cacaab71a.png)
+
+# ObservableObjectを入れ子にした場合
