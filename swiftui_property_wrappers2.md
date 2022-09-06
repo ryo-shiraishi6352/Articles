@@ -118,3 +118,110 @@ struct ObservedObjectContentView_Previews: PreviewProvider {
 # ObservableObjectを入れ子にした場合
 ObservableObjectを入れ子にした場合、直接プロパティを変更してもViewの更新は行われません。 　
 `@Binding`や`@ObservedObject`を付加したプロパティを持つViewに渡すとViewの更新が行われます。 　
+
+```swift
+import SwiftUI
+
+struct ObservableObjectNestContentView: View {
+    @StateObject var observableNestValue = ObservableNestValue1(value: 0, nest: ObservableNestValue2(value: 0))
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("参照と更新")
+                    .padding()
+                Button(action: {
+                    self.observableNestValue.value += 1
+                }) {
+                    Text(String(self.observableNestValue.value))
+                        .padding()
+                }
+                Button(action: {
+                    self.observableNestValue.nest.value += 1
+                }) {
+                    Text(String(self.observableNestValue.nest.value))
+                        .padding()
+                }
+            }
+            HStack {
+                Text("@Bindingに渡す")
+                    .padding()
+                BindingView(value: self.$observableNestValue.value)
+                BindingView(value: self.$observableNestValue.nest.value)
+            }
+            HStack {
+                Text("@ObservedObjectに渡す")
+                    .padding()
+                ObservedObjectView1(value: self.observableNestValue)
+                ObservedObjectView2(value: self.observableNestValue.nest)
+            }
+        }
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+    
+    
+    struct BindingView: View {
+        @Binding var value: Int
+        
+        var body: some View {
+            Button(action: {
+                self.value += 1
+            }) {
+                Text(String(self.value))
+                    .padding()
+            }
+        }
+    }
+    
+    struct ObservedObjectView1: View {
+        @ObservedObject var value: ObservableNestValue1
+        
+        var body: some View {
+            Button(action: {
+                self.value.value += 1
+            }) {
+                Text(String(self.value.value))
+                    .padding()
+            }
+        }
+    }
+    
+    struct ObservedObjectView2: View {
+        @ObservedObject var value: ObservableNestValue2
+        
+        var body: some View {
+            Button(action: {
+                self.value.value += 1
+            }) {
+                Text(String(self.value.value))
+                    .padding()
+            }
+        }
+    }
+    
+    class ObservableNestValue1: ObservableObject {
+        @Published var value: Int
+        
+        @Published var nest: ObservableNestValue2
+        
+        init(value: Int, nest: ObservableNestValue2) {
+            self.value = value
+            self.nest = nest
+        }
+    }
+
+    class ObservableNestValue2: ObservableObject {
+        @Published var value: Int
+        
+        init(value: Int) {
+            self.value = value
+        }
+    }
+}
+
+struct ObservableObjectNestContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ObservableObjectNestContentView()
+    }
+}
+```
