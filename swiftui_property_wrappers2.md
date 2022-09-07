@@ -225,3 +225,4 @@ struct ObservableObjectNestContentView_Previews: PreviewProvider {
     }
 }
 ```
+![スクリーンショット 2022-09-07 18.59.12.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/afc3107c-b327-6d68-e9d4-ec0aee0cb4c6.png)
