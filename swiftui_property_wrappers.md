@@ -4,6 +4,9 @@
 SwiftUIのProperty wrappersでこんなときはどうしたらいいの？どのように使えばいいの？と
 あまり理解できていなかったのでいくつかサンプルを作成しながら使い方をまとめました。  
 
+SwiftUIのProperty Wrappersの使い方 その２  
+https://qiita.com/ryo_shiraishi6352/items/02ce56d48ee12f1d7318
+
 # Stateの使い方
 あるViewの中で値を変更したいプロパティには`@State`を付与することで変更が可能になります。  
 PickerなどのBinding引数には`$`をプロパティの前につけて渡します。  
