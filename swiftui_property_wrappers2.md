@@ -1,5 +1,9 @@
 <!-- SwiftUIのProperty Wrappersの使い方 その２ -->
 
+# 関連記事
+SwiftUIのProperty Wrappersの使い方 その１  
+https://qiita.com/ryo_shiraishi6352/items/0b8eb768207b455f0387
+
 # StateObjectの使い方
 `@State`は値型のプロパティに付加しますが参照型のクラスのプロパティには`@StateObject`を付加します。  
 `@StateObject`を付加するクラスにはObservableObjectプロトコルに準拠させ、監視するプロパティには`@Published`を付加します。  
@@ -226,3 +230,7 @@ struct ObservableObjectNestContentView_Previews: PreviewProvider {
 }
 ```
 ![スクリーンショット 2022-09-07 18.59.12.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1281693/afc3107c-b327-6d68-e9d4-ec0aee0cb4c6.png)
+
+# 終わりに
+SwiftUIのProperty Wrappersの使い方を実際にコードを書きながら動きを確認しました。 　
+基本的な使い方や画面が更新される範囲などを理解することができました。  
