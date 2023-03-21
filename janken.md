@@ -41,6 +41,37 @@ $$
 P(n \to n) = 1 - \sum_{n'=1}^{n-1} P(n \to n')
 $$
 
+# 普通のじゃんけんのシミュレーション
+$n$ 人のじゃんけんの手をランダムに生成し、普通のじゃんけんの勝敗の決め方に従って
+$n'$ 人になる確率をシミュレーションします。
+
+```python
+import random
+
+def janken_simulation(n):
+    hands = [['gu', 'choki', 'pa'][random.randrange(3)] for _ in range(n)]
+
+    has_gu = any(h == 'gu' for h in hands)
+    has_choki = any(h == 'choki' for h in hands)
+    has_pa = any(h == 'pa' for h in hands)
+
+    if has_gu and has_choki and has_pa:
+        win_hand = None
+    elif has_gu and has_choki:
+        win_hand = 'gu'
+    elif has_choki and has_pa:
+        win_hand = 'choki'
+    elif has_pa and has_gu:
+        win_hand = 'pa'
+    else:
+        win_hand = None
+    
+    if win_hand is None:
+        return n
+    
+    return sum(h == win_hand for h in hands)
+```
+
 # 普通のじゃんけんをしたときの確率
 $n$ 人でじゃんけんをして $n'(\neq n)$ になる確率 $P(n \to n')$ は  
 勝者の手が決まれば敗者の手は1つに決まるので、$n$ 人から $n'$人が選ばれる確率に等しい。  
