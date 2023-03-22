@@ -48,7 +48,7 @@ $n'$ 人になる確率をシミュレーションします。
 ```python
 import random
 
-def janken_simulation(n):
+def normal_janken_simulation(n):
     hands = [['gu', 'choki', 'pa'][random.randrange(3)] for _ in range(n)]
 
     has_gu = any(h == 'gu' for h in hands)
@@ -79,6 +79,20 @@ $n$ 人でじゃんけんをして $n'(\neq n)$ になる確率 $P(n \to n')$ �
 $$
 P(n \to n') = 3 * \frac{{}_nC_{n'}}{3^n} = \frac{{}_nC_{n'}}{3^{n-1}}
 $$
+
+```python
+import math
+
+def aiko_strict(n, f):
+    return 1 - sum(f(n_prime) for n_prime in range(n-1))
+
+def normal_janken_strict(n, n_prime):
+    if n == n_prime:
+        return aiko_strict(n, lambda x: normal_janken_strict(n, x))
+    else:
+        return math.comb(n, n_prime) / (3**(n-1))
+    return 
+```
 
 # 人数を変えながらシミュレーションした結果
 人数を2人から10人の間で変えながら100回ずつシミュレーションした結果が以下の図です。  
