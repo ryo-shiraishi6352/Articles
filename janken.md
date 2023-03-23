@@ -48,28 +48,36 @@ $n'$ 人になる確率をシミュレーションします。
 ```python
 import random
 
-def normal_janken_simulation(n):
-    hands = [['gu', 'choki', 'pa'][random.randrange(3)] for _ in range(n)]
+def normal_janken_simulation(n, trial_count):
+    count_dict = dict()
+    for _ in range(trial_count):
+        hands = [['gu', 'choki', 'pa'][random.randrange(3)] for _ in range(n)]
 
-    has_gu = any(h == 'gu' for h in hands)
-    has_choki = any(h == 'choki' for h in hands)
-    has_pa = any(h == 'pa' for h in hands)
+        has_gu = any(h == 'gu' for h in hands)
+        has_choki = any(h == 'choki' for h in hands)
+        has_pa = any(h == 'pa' for h in hands)
 
-    if has_gu and has_choki and has_pa:
-        win_hand = None
-    elif has_gu and has_choki:
-        win_hand = 'gu'
-    elif has_choki and has_pa:
-        win_hand = 'choki'
-    elif has_pa and has_gu:
-        win_hand = 'pa'
-    else:
-        win_hand = None
-    
-    if win_hand is None:
-        return n
-    
-    return sum(h == win_hand for h in hands)
+        if has_gu and has_choki and has_pa:
+            win_hand = None
+        elif has_gu and has_choki:
+            win_hand = 'gu'
+        elif has_choki and has_pa:
+            win_hand = 'choki'
+        elif has_pa and has_gu:
+            win_hand = 'pa'
+        else:
+            win_hand = None
+        
+        n_prime = n if win_hand is None else sum(h == win_hand for h in hands)
+        
+        if n_prime in count_dict:
+            count_dict[n_prime] += 1
+        else:
+            count_dict[n_prime] = 1
+    xs = list(range(1, max(count_dict) + 1))
+    ys = [count_dict[i] if i in count_dict else 0 for i in xs]
+    ys = [y / trial_count for y in ys]
+    return ys
 ```
 
 # 普通のじゃんけんをしたときの確率
