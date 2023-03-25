@@ -41,6 +41,11 @@ $$
 P(n \to n) = 1 - \sum_{n'=1}^{n-1} P(n \to n')
 $$
 
+```python
+def aiko_calc(n, f):
+    return 1 - sum(f(n_prime) for n_prime in range(1, n-1))
+```
+
 # 普通のじゃんけんのシミュレーション
 $n$ 人のじゃんけんの手をランダムに生成し、普通のじゃんけんの勝敗の決め方に従って
 $n'$ 人になる確率をシミュレーションします。
@@ -91,15 +96,13 @@ $$
 ```python
 import math
 
-def aiko_strict(n, f):
-    return 1 - sum(f(n_prime) for n_prime in range(n-1))
-
-def normal_janken_strict(n, n_prime):
-    if n == n_prime:
-        return aiko_strict(n, lambda x: normal_janken_strict(n, x))
-    else:
-        return math.comb(n, n_prime) / (3**(n-1))
-    return 
+def normal_janken_calc(n):
+    def janken_calc(n, n_prime):
+        if n == n_prime:
+            return aiko_calc(n, lambda x: janken_calc(n, x))
+        else:
+            return math.comb(n, n_prime) / (3**(n-1))
+    return [janken_calc(n, n_prime) for n_prime in range(1, n + 1)]
 ```
 
 # 人数を変えながらシミュレーションした結果
