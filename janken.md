@@ -106,6 +106,34 @@ def normal_janken_calc(n):
 ```
 
 # 普通のじゃんけんをして $n$ 人から $n'$ 人になる確率のグラフ
+```python
+def plot_normal_janken():
+    trial_count = 1000
+    n_max = 5
+    
+    plt.rcParams['font.family'] = 'MS Gothic'
+    fig, ax = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
+
+    for n in range(2, n_max+1):
+        xs = list(range(1, n + 1))
+        ys = normal_janken_simulation(n, trial_count)
+        ax[0].plot(xs, ys, label=f'n = {n}')
+    ax[0].legend()
+    ax[0].set_xlabel('$n\'$ 人')
+    ax[0].set_title('シミュレーション')
+    
+    for n in range(2, n_max+1):
+        xs = list(range(1, n + 1))
+        ys = normal_janken_calc(n)
+        ax[1].plot(xs, ys, label=f'n = {n}')
+    ax[1].legend()
+    ax[1].set_xlabel('$n\'$ 人')
+    ax[1].set_title('計算')
+
+    fig.suptitle('普通のじゃんけんをして $n$ 人から $n\'$ 人になる確率')
+
+    plt.show()
+```
 ![janken_normal_1.png](.\janken_normal_1.png)
 
 # 人数を変えながらシミュレーションした結果
