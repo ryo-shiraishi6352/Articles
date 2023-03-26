@@ -43,7 +43,7 @@ $$
 
 ```python
 def aiko_calc(n, f):
-    return 1 - sum(f(n_prime) for n_prime in range(1, n-1))
+    return 1 - sum(f(n_prime) for n_prime in range(1, n))
 ```
 
 # 普通のじゃんけんのシミュレーション
@@ -104,6 +104,9 @@ def normal_janken_calc(n):
             return math.comb(n, n_prime) / (3**(n-1))
     return [janken_calc(n, n_prime) for n_prime in range(1, n + 1)]
 ```
+
+# 普通のじゃんけんをして $n$ 人から $n'$ 人になる確率のグラフ
+![janken_normal_1.png](.\janken_normal_1.png)
 
 # 人数を変えながらシミュレーションした結果
 人数を2人から10人の間で変えながら100回ずつシミュレーションした結果が以下の図です。  
